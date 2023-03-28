@@ -1,0 +1,32 @@
+#!/bin/sh
+
+while [ 1 ]
+do
+
+   echo "------- Main Menu -------\n1. add a new node\n2. search\n3. show list\n4. show group\n5. import/export\n6. change order\n-------------------------\n\n"
+   echo "Input your command number: "
+   read command
+   echo "your choice: $command"
+   
+   if [ $command -eq 1 ]
+	then
+		echo "AddNewNode()"
+	elif [ $command -eq 2 ]
+	then
+		echo "searchDisplay()"
+	elif [ $command -eq 3 ]
+	then
+		echo "ShowList()"
+	elif [ $command -eq 4 ]
+	then
+		echo "SelectGroup()"
+		echo "ShowGroup()"
+	elif [ $command -eq 5 ]
+	then
+		echo "Import_Export()"
+	elif [ $command -eq 6 ]
+	then
+		echo "ChangeOrder()"		
+	fi
+
+done
