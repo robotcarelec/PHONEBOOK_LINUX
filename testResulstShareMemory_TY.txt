@@ -1,0 +1,18 @@
+tuss@raspberrypi:~/phonebook/TestSHM $ gcc -o testReceiveSHMs testReceiveSHMs.c -lrt
+tuss@raspberrypi:~/phonebook/TestSHM $ ./makeStructSHMs
+sender mapped address1 : 0x7fb54db000
+sender mapped address2 : 0x7fb54da000
+sender mapped address3 : 0x7fb54d9000
+------- below nodes were added in server -------
+0 0x7fb54db000 KIM CheolMin
+1 0x7fb54da000 NAM HyeMin
+2 0x7fb54d9000 YANG ChangMin
+--------------------------------------
+tuss@raspberrypi:~/phonebook/TestSHM $ ./testReceiveSHMs
+Receiver mapped address1 : 0x7fb23ef000 (nil) 0x7fb54da000 
+Receiver mapped address2 : 0x7fb23ee000 0x7fb54db000 0x7fb54d9000 
+Receiver mapped address3 : 0x7fb23ed000 0x7fb54da000 (nil) 
+Num ID  index  Name  Number  Group
+10001 1 KIM CheolMin 010-5324.2342 Team 
+세그멘테이션 오류
+tuss@raspberrypi:~/phonebook/TestSHM $ 
