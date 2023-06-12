@@ -17,16 +17,17 @@
 #include <unistd.h>
 
 #define NAME "SharedMemory"
-#define NAME2 "SharedMemory2"
 #define NUM 100
 #define SIZE sizeof(stNode)
+
+#define NAME2 "SharedMemory2"
 #define SIZE2 sizeof(stList)
 
 
 void print_screen();
 int select_sub();
 int Import(stNode* nPtr);
-void Export(stNode* nPtr, int cNode);
+void Export(stNode* nodePtr, stList * listPtr);
 int CSV_search(char *, char [10][1024]);
 
 int main (){
@@ -37,27 +38,24 @@ int main (){
         return EXIT_FAILURE;
     }
     
-    ftruncate(fd, NUM*SIZE);
+    //ftruncate(fd, NUM*SIZE);
     
     stNode *nodePtr;
     nodePtr = (stNode *)mmap(0, NUM*SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 
-
-	//stList* export_list;
-	//stList도 공유 메모리에 잡아주자.
 	int fd2; 
     if ((fd2 = shm_open(NAME2, O_CREAT | O_RDWR, 0600)) <0 ){
         perror("shm_open()");
         return EXIT_FAILURE;
     }
     
-    ftruncate(fd2, SIZE2);
+    //ftruncate(fd2, SIZE2);
     
     stList *listPtr;
     listPtr = (stList *)mmap(0, SIZE2, PROT_READ | PROT_WRITE, MAP_SHARED, fd2, 0);
-	//stList 공유 메모리 끝.
 
 
+	stList* export_list;
 
 	print_screen();
 
@@ -73,9 +71,13 @@ int main (){
         for (int k=0;k<cNode;k++){
             printf("[Index %d] %d %d %s %s %s %d %d \n",k, nodePtr[k].id,nodePtr[k].index, nodePtr[k].name, nodePtr[k].number, nodePtr[k].group,nodePtr[k].pPrev,nodePtr[k].pNext);
         }
-	}	
+		listPtr->pHead = 0;
+	    listPtr->pTail = cNode-1;
+		printf("List Head : %d, Tail : %d\n", listPtr->pHead, listPtr->pTail);
+	}
+		
 	else if (mode == 2)
-		Export(nodePtr,cNode);
+		Export(nodePtr, listPtr);
 	else
 		printf("Select Wrong Number \n");
 }
@@ -249,7 +251,7 @@ int Import(stNode* node)
 }
 	
 
-void Export(stNode* pList, int currentnode)
+void Export(stNode* nodePtr, stList* listPtr)
 {
 	FILE * fp;
 	char name[100];
@@ -264,9 +266,19 @@ void Export(stNode* pList, int currentnode)
 		printf("Cannot create the file\n");
 	}
     int k;
-	for (k=0; k<currentnode; k++)
-	{
-		fprintf(fp,"%d,%d,%s,%s,%s,%d\n",pList[k].id, pList[k].index, pList[k].name, pList[k].number, pList[k].group, pList[k].favorite);
+	
+	int index = listPtr->pHead;
+	stNode* currentNode;
+	
+	if (index == -1){
+		printf("Can't not export data because no data for saving...\n");
 	}
+	else{
+		while(index != -1){
+        	currentNode = &nodePtr[index];
+			fprintf(fp,"%d,%d,%s,%s,%s,%d\n",currentNode->id, currentNode->index, currentNode->name, currentNode->number, currentNode->group, currentNode->favorite);
+	    	index = currentNode->pNext;
+		}
+    }
 	fclose(fp);
 }
