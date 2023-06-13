@@ -46,5 +46,14 @@ int main(){
     stList *listPtr;
     listPtr = (stList *)mmap(0, SIZE2, PROT_READ | PROT_WRITE, MAP_SHARED, fd2, 0);
 
+    int i;
+    for(i=0;i<100;i++){
+        nodePtr[i].pNext = -1;
+        nodePtr[i].pPrev = -1;
+    }
+
+    listPtr->pHead = -1;
+    listPtr->pTail = -1;
+
     return 0;
 }
