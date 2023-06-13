@@ -40,6 +40,6 @@ do
 
 done
 
-./tuminating
-echo "main_Shell was tuminated"
+./terminating
+echo "main_Shell was terminated"
 exit 0
