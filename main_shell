@@ -17,8 +17,15 @@ do
 	elif [ $command -eq 2 ]
 	then
 		echo "searchDisplay()"
-		./searchDisplay	
-		./ShowNode $?
+		./searchDisplay
+			return_value=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_value를 선언해 줬습니다.
+			echo $return_value				
+			if [ $return_value -eq 0 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
+			then
+				continue;
+			fi
+		#./ShowNode $?
+		./ShowNode $return_value
 	elif [ $command -eq 3 ]
 	then
 		echo "ShowList()"
