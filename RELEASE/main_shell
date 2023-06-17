@@ -1,0 +1,73 @@
+#!/bin/sh
+# gcc -g ShowGroup.c double_linked_list.c -o ShowGroup -lrt
+# gcc -g ChangeOrder.c -o ChangeOrder -lrt
+# gcc -g Import_Export.c -o Import_Export -lrt
+# gcc -g SelectGroup.c -o SelectGroup -lrt
+# gcc -g ShowNode.c -o ShowNode -lrt
+# gcc -g initializing.c -o initializing -lrt
+# gcc -g searchDisplay.c -o searchDisplay -lrt
+# gcc -g terminating.c -o terminating -lrt
+
+
+./initializing
+
+while [ 1 ]
+do
+    
+   echo "------- Main Menu -------\n1. add a new node\n2. search\n3. show list\n4. show group\n5. import/export\n6. change order\n-------------------------\n\n"
+   echo "Input your command number: "
+   read command
+   echo "your choice: $command"
+   
+   if [ $command -eq 1 ]
+	then
+		echo "AddNewNode()"
+
+	elif [ $command -eq 2 ]
+	then
+		echo "searchDisplay()"
+		./searchDisplay
+			return_value=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_value를 선언해 줬습니다.
+			echo $return_value				
+			if [ $return_value -eq 0 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
+			then
+				continue;
+			fi
+		#./ShowNode $?
+		echo "ShowNode()"
+		./ShowNode $return_value
+	elif [ $command -eq 3 ]
+	then
+		echo "ShowList()"
+	elif [ $command -eq 4 ]
+	then
+		echo "SelectGroup()"
+		./SelectGroup
+		echo "ShowGroup()"
+		./ShowGroup
+			return_value=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_value를 선언해 줬습니다.
+			echo $return_value				
+			if [ $return_value -eq 0 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
+			then
+				continue
+			fi
+		#./ShowNode $?
+		echo "ShowNode()"
+		./ShowNode $return_value
+	elif [ $command -eq 5 ]
+	then
+		echo "Import_Export()"
+		./Import_Export		
+	elif [ $command -eq 6 ]
+	then
+		echo "ChangeOrder()"
+        ./ChangeOrder
+    else
+        break
+    fi
+
+done
+
+./terminating
+echo "main_Shell was terminated"
+exit 0
