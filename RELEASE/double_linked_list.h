@@ -57,6 +57,7 @@ typedef struct __List {
     int sort_order;
     int count_node;
     char group_name[GROUP_LENGTH];  // SelectGroup() 과 ShowGroup() 연계를 위한 전역변수. 
+    int return_value; //정상일 때 0 이상의 정수, 비정상일 때 -1. 초기화 없이 써보고, 문제되면 초기화 절차 추가해줘야 함. 
 } stList;   // 리스트 구조체
 
 // YTY 구조체. github - TY 브랜치에서 이 부분만 복붙함.
