@@ -54,15 +54,19 @@ int main(){
 */
     //currentNode = &nodePtr[listPtr->pHead];
     int k=0;
-    int index = listPtr->pHead;
+
+    printf("List Head : %d, List Tail : %d\n",listPtr->pHead, listPtr->pTail);
     
-    if(index = -1) printf("No data...\n");
+    int index = listPtr->pHead;
+
+    if(index == -1) printf("No data...\n");
     
     while(index != -1){
         currentNode = &nodePtr[index];
         printf("[%d] %d %d %s %s %s %d\n", k, currentNode->index, currentNode->id, currentNode->name, currentNode->number, currentNode->group, currentNode->pNext);
         k++;
         //currentNode = &nodePtr[currentNode->pNext];
+        //printf("%d, ",index);
         index = currentNode->pNext;
     }
     printf("\n\n               Searching               \n\n");
@@ -106,6 +110,7 @@ int main(){
         if(selectedIndex == 0){
             selectedNode = NULL;
             printf("Return index : -1\n");
+            listPtr->return_value = -1;
             return -1;
         }
         else{
@@ -146,6 +151,7 @@ int main(){
         selectedNode = NULL;
         printf("Searched Fail\n\n"); // 입력 값이 검색 결과 중 index값과 매칭이 안될 시
         printf("Return index : -1\n");
+        listPtr->return_value = -1;
         return -1; 
     }
     /*
@@ -167,6 +173,7 @@ int main(){
     }
 
     printf("Return index : %d\n", returnValue);
+    listPtr->return_value = returnValue;
     return returnValue;
 
     //return 0; // 최종 선택된 stNode 값을 리턴
