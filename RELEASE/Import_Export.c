@@ -67,13 +67,14 @@ int main (){
 	if (mode == 1)
 	{
 		cNode = Import(nodePtr);
+		system("clear");
         printf("Print Read %d\n", cNode);
         for (int k=0;k<cNode;k++){
             printf("[Index %d] %d %d %s %s %s %d %d \n",k, nodePtr[k].id,nodePtr[k].index, nodePtr[k].name, nodePtr[k].number, nodePtr[k].group,nodePtr[k].pPrev,nodePtr[k].pNext);
         }
 		listPtr->pHead = 0;
 	    listPtr->pTail = cNode-1;
-		printf("List Head : %d, Tail : %d\n", listPtr->pHead, listPtr->pTail);
+		printf("List Head : %d, Tail : %d\n\n", listPtr->pHead, listPtr->pTail);
 	}
 		
 	else if (mode == 2)
