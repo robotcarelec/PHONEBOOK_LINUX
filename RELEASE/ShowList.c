@@ -1,3 +1,4 @@
+// (230627) double_linked_list.h 내부 함수와 충돌나는 이름은 모두 뒤에 "2"를 붙여줬습니다.
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -42,14 +43,14 @@ typedef struct ___List {
 } localList;   // 리스트 구조체
 
 
-void InitializeList(localList* pList);              // 메모리 할당해서 리스트 만들기
-localNode* MakeNode(localNode* data);                //메모리 할당해서 노드 만들기
-void AddtoTailNode(localList* pList, localNode* data);  //Tail에 노드 추가
-void AddtoHeadNode(localList* pList, localNode* data);   // Head에 노드 추가
-void DeleteNode(localList* pList, int index);        // 현재 노드 삭제 하기 (id 기준)
-void PrintList(localList* pList);                 // 전체 리스트 출력하기
-int IsEmpty(localList *pList) ;
-void CountNode(localList *pList);
+void InitializeList2(localList* pList);              // 메모리 할당해서 리스트 만들기
+localNode* MakeNode2(localNode* data);                //메모리 할당해서 노드 만들기
+void AddtoTailNode2(localList* pList, localNode* data);  //Tail에 노드 추가
+void AddtoHeadNode2(localList* pList, localNode* data);   // Head에 노드 추가
+void DeleteNode2(localList* pList, int index);        // 현재 노드 삭제 하기 (id 기준)
+void PrintList2(localList* pList);                 // 전체 리스트 출력하기
+int IsEmpty2(localList *pList) ;
+void CountNode2(localList *pList);
 
 localNode* ShowList(localList* pList);
 int SortList(localList* pList);
@@ -156,7 +157,7 @@ void ChangeList(stNode* nodePtr, stList* listPtr, localNode* lNode, localList* l
 		curLocalNode->matchedValue = nodePtr[curindex].matchedValue;
 		curLocalNode->favorite = nodePtr[curindex].favorite;
 		
-		AddtoTailNode(lList,curLocalNode);
+		AddtoTailNode2(lList,curLocalNode);
 		
 		curindex = nodePtr[curindex].pNext;
 		
@@ -195,11 +196,11 @@ localNode* ShowList(localList* pList) {
     // 변수 선언
     localNode* selected_node, *cur;
     int i, user_choice=0, limit_ask=3;     
-    if(IsEmpty(pList)==1) {   // list가 NULL 이면 NULL 리턴
+    if(IsEmpty2(pList)==1) {   // list가 NULL 이면 NULL 리턴
         printf("This list is empty.\n");
         return NULL;  
     }     
-    CountNode(pList);
+    CountNode2(pList);
     if (pList->sort_needs==1) {  //sort_needs=1 정렬이 필요하면 정렬시작        
 
         //정렬기준에 따른 정렬하는 함수 콜
@@ -208,7 +209,7 @@ localNode* ShowList(localList* pList) {
         //PrintList(pList);     //        
     }
     // 현재의 리스트를 print하고
-    PrintList(pList);    
+    PrintList2(pList);    
     
     // 사용자가 index를 선택하도록 하는 기능 추가
     while(limit_ask > 0) {
@@ -260,7 +261,7 @@ int SortPhonebook(localList* pList) {
     int i,j;
     bool switching_position=false;
         
-    CountNode(pList); // 노드의 개수를 세기
+    CountNode2(pList); // 노드의 개수를 세기
     
     if ((*pList).count_node <= 1 ) {
         printf("The number of nodes is not enough.\n");
@@ -358,7 +359,7 @@ int SortFavorite(localList* pList) {
     localNode* cur, *tmp;
     int count;
     cur = pList->pTail;
-    CountNode(pList);
+    CountNode2(pList);
     if((*pList).count_node<2) {
         printf("The number of nodes is not enough.\n");
         return -1;
@@ -378,7 +379,7 @@ int SortFavorite(localList* pList) {
                 tmp->pNext = cur->pNext;                         
             }
            // cur는 head에 삽입   (double linked list head 삽입 기능 사용)  
-           AddtoHeadNode(pList, cur);                      
+           AddtoHeadNode2(pList, cur);                      
         }
         //PrintList(pList);
         cur = tmp;   
@@ -404,7 +405,7 @@ void Renumbering(localList* pList) {
 //double_linked_list.c에 있는 함수 들고옴
 	
 
-void InitializeList(localList* pList) {
+void InitializeList2(localList* pList) {
     localList* list = malloc(sizeof(localList));
     list->pHead = list->pTail = NULL;
     list->sort_needs = 1;
@@ -412,7 +413,7 @@ void InitializeList(localList* pList) {
     list->count_node = 0;
 }
 
-localNode* MakeNode(localNode* data) {
+localNode* MakeNode2(localNode* data) {
     localNode* node = malloc(sizeof(localNode));
     node = data;
     node->pPrev = node->pNext = NULL;
@@ -420,9 +421,9 @@ localNode* MakeNode(localNode* data) {
     return node;
 }  //노드를 만들기 위해 메모리 할당하고 초기화하기
 
-void AddtoTailNode(localList* pList, localNode* data) {   // 노드를 tail에 노드 추가
-    localNode* node = MakeNode(data);
-    if(IsEmpty(pList)) {
+void AddtoTailNode2(localList* pList, localNode* data) {   // 노드를 tail에 노드 추가
+    localNode* node = MakeNode2(data);
+    if(IsEmpty2(pList)) {
         pList->pHead = pList->pTail = node;   
     } else {
         node->pPrev = pList->pTail;
@@ -432,9 +433,9 @@ void AddtoTailNode(localList* pList, localNode* data) {   // 노드를 tail에 �
     }
 }  //List의 뒤에 신규 노드 추가
 
-void AddtoHeadNode(localList* pList, localNode* data) { //노드를 Head에 추가    
-    localNode* node = MakeNode(data);
-    if(IsEmpty(pList)) {
+void AddtoHeadNode2(localList* pList, localNode* data) { //노드를 Head에 추가    
+    localNode* node = MakeNode2(data);
+    if(IsEmpty2(pList)) {
         pList->pHead = pList->pTail = node;   
     } else {       
         node->pNext = pList->pHead;
@@ -443,9 +444,9 @@ void AddtoHeadNode(localList* pList, localNode* data) { //노드를 Head에 추�
         node->pPrev = NULL;    
     }
 }  
-void DeleteNode(localList* pList, int index) {
+void DeleteNode2(localList* pList, int index) {
     localNode* cur;
-    if(IsEmpty(pList)) {
+    if(IsEmpty2(pList)) {
         printf("There is no member.\n");    
     } else {
         cur = pList->pHead;
@@ -462,7 +463,7 @@ void DeleteNode(localList* pList, int index) {
 }  // index를 받아서 같은 index를 가진 노드 삭제 하기 
 
 
-void PrintList(localList* pList) {
+void PrintList2(localList* pList) {
     localNode* cur;
     for (cur = pList->pHead; cur !=NULL ; cur=cur->pNext) {
         printf("%5d ", cur->id);
@@ -476,11 +477,11 @@ void PrintList(localList* pList) {
     printf("\n");
 }
 
-int IsEmpty(localList* pList) {
+int IsEmpty2(localList* pList) {
     return (pList->pHead == NULL);
 } // 리스트가 비어있는 지 확인
 
-void CountNode(localList *pList){
+void CountNode2(localList *pList){
 	int count=0;
     localNode* cur;
     for (cur = pList->pHead; cur !=NULL ; cur=cur->pNext) {

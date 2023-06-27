@@ -1,3 +1,4 @@
+// (230627) double_linked_list.h 내부 함수와 충돌나는 이름은 모두 뒤에 "2"를 붙여줬습니다.
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -22,10 +23,10 @@
 void AddNewNode(stList* pList, stNode* data);
 int searchVacantIDadd(stList* pList, stNode* data);
 int addedIndex(stList* pList, stNode* data);
-void AddtoTailNode(stList* pList, stNode* data);
+void AddtoTailNode2(stList* pList, stNode* data);
 int maxValue(stList* pList, stNode* pNode);
 
-int IsEmpty(stList* pList) {
+int IsEmpty2(stList* pList) {
     return (pList->pHead == -1);
 } // 리스트가 비어있는 지 확인
 
@@ -214,11 +215,11 @@ int maxValue(stList* pList, stNode* pNode){
 }
 
 
-void AddtoTailNode(stList* pList, stNode* data) {   // 노드를 tail에 노드 추가
+void AddtoTailNode2(stList* pList, stNode* data) {   // 노드를 tail에 노드 추가
     //stNode* node = MakeNode(data);
     
 	
-	if(IsEmpty(pList)) {
+	if(IsEmpty2(pList)) {
         pList->pHead = pList->pTail = -1;   
     } else {
         data->pPrev = pList->pTail;
