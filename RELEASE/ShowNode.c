@@ -50,7 +50,7 @@ int main(int argc, char* argv[]){
     // 확인 끝
 
     // char형으로 받은 argv[1]을 int형으로 변환. 배열의 index로 사용하기 위함.
-    int n = *argv[1] - 48;
+    // int n = *argv[1] - 48;               // (230628) 리턴값을 매개변수가 아닌, 공유메모리 stList.return_value에서 받기로 변경함
 
     // 공유 메모리 받아오기
     int fd; 
@@ -73,9 +73,12 @@ int main(int argc, char* argv[]){
     pList = (stList *)mmap(0, SIZE2, PROT_READ | PROT_WRITE, MAP_SHARED, fd2, 0);
 	//stList 공유 메모리 끝.
     
+printf("pList->return_value = %d\n", pList->return_value);
+    int n = pList->return_value;    // pList 구조체의 return_value 멤버를 전역변수 리턴값으로 활용함.
+    
+    printf("n = %d\n", n);    // 전역변수 리턴값 n을 잘 받았는지 확인.
 
-
-    // 없어도 되는 코드인 듯
+    // tmp_stNode를 선언 후, n번째 구조체 배열을 가리키게 함.
     stNode* tmp_stNode;
     tmp_stNode = &nodePtr[n];    
 

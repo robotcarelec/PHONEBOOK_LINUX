@@ -174,6 +174,7 @@ int main(){
 
     printf("Return index : %d\n", returnValue);
     listPtr->return_value = returnValue;
+
     return returnValue;
 
     //return 0; // 최종 선택된 stNode 값을 리턴

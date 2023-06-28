@@ -123,7 +123,9 @@ int main(){
 	while(n != -1){
         currentNode = &nodePtr[n];
 		if (currentNode->id == o_selectedNode->id){
-			return currentNode - nodePtr; //(230617) 노드 배열의 인덱스값을 리턴.
+			//return currentNode - nodePtr; //(230617) 노드 배열의 인덱스값을 리턴.
+			pList->return_value = currentNode - nodePtr; //(230628) 노드 배열의 인덱스값을 리턴값에 저장.
+			return 1;
 		}
         n = currentNode->pNext;
     }

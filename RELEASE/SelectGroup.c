@@ -142,11 +142,16 @@ int main(){
 	}
 	printf("--------------------------\n");
     printf("Type Group name correctly:! ");
+    printf("\n(If you want to come back Main Menu, Input '0')....");
     
 	//scanf("%s", group_name);               // 리스트 중에 group_name을 타이핑하도록 함.
 	scanf("%s", pList->group_name);
+        if(pList->group_name == 0){
+            return 0;
+        }
     //printf("%s\n", group_name);
-    printf("%s\n", pList->group_name);
+    printf("pList->group_name: %s\n", pList->group_name);
+    return 1;
 }
 
 

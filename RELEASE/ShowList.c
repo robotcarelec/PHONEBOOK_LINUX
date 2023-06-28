@@ -195,7 +195,9 @@ void saveList(stNode* nodePtr, stList* listPtr, localNode* lNode, localList* lLi
 localNode* ShowList(localList* pList) {
     // 변수 선언
     localNode* selected_node, *cur;
-    int i, user_choice=0, limit_ask=3;     
+    //int i, user_choice=0, limit_ask=3;     
+    int i, user_choice, limit_ask=3;     
+printf("here2\n");    
     if(IsEmpty2(pList)==1) {   // list가 NULL 이면 NULL 리턴
         printf("This list is empty.\n");
         return NULL;  
@@ -219,7 +221,8 @@ localNode* ShowList(localList* pList) {
         
         if(user_choice == 0) {
             // printf("quit\n");
-            return NULL;    // q를 입력받으면 NULL을 리턴함
+            return 0;    // q를 입력받으면 NULL을 리턴함                                 // (230628) NULL → 0
+printf("here1\n");
         }        
         if(user_choice <= pList->count_node && user_choice > 0) {
             break;
@@ -240,6 +243,10 @@ localNode* ShowList(localList* pList) {
             break;
         }
         cur=cur->pNext;
+printf("here\n");
+printf("cur->index: %d\n",cur->index);
+printf("user_choice: %d\n",user_choice);
+
     }    
     //printf("\nselected node is %s\n", selected_node->name);
     return selected_node;          

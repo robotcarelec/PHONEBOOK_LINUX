@@ -5,15 +5,16 @@
 # 2. ShowGroup.c는 double_linked_list.c와 함께 빌드함.
 
 # 아래는 빌드명령 모음.
-# gcc -g ShowGroup.c double_linked_list.c -o ShowGroup -lrt
-# gcc -g ChangeOrder.c -o ChangeOrder -lrt
-# gcc -g Import_Export.c -o Import_Export -lrt
-# gcc -g SelectGroup.c -o SelectGroup -lrt
-# gcc -g ShowNode.c -o ShowNode -lrt
-# gcc -g initializing.c -o initializing -lrt
-# gcc -g searchDisplay.c -o searchDisplay -lrt
-# gcc -g terminating.c -o terminating -lrt
-
+gcc -g ShowGroup.c double_linked_list.c -o ShowGroup -lrt
+gcc -g ChangeOrder.c -o ChangeOrder -lrt
+gcc -g Import_Export.c -o Import_Export -lrt
+gcc -g SelectGroup.c -o SelectGroup -lrt
+gcc -g ShowNode.c -o ShowNode -lrt
+gcc -g initializing.c -o initializing -lrt
+gcc -g searchDisplay.c -o searchDisplay -lrt
+gcc -g terminating.c -o terminating -lrt
+gcc -g ShowList.c -o ShowList -lrt
+gcc -g newinsertlist.c -o newinsertlist -lrt
 
 ./initializing
 
@@ -34,44 +35,53 @@ do
 	then
 		echo "searchDisplay()"
 		./searchDisplay
-			return_value=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_value를 선언해 줬습니다.
-			echo $return_value				
-			if [ $return_value -eq -1 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
+			return_success=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_success를 선언해 줬습니다.
+			# echo $return_success
+			echo "return_success = " $return_success	
+			if [ $return_success -eq 0 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
 			then
 				continue
 			fi
 		#./ShowNode $?
 		echo "ShowNode()"
-		./ShowNode $return_value
+		./ShowNode $return_success
 	elif [ $command -eq 3 ]
 	then
 		echo "ShowList()"
 		./ShowList
-			return_value=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_value를 선언해 줬습니다.
-			echo $return_value				
-			if [ $return_value -eq -1 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
+			return_success=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_success를 선언해 줬습니다.
+			# echo $return_success
+			echo "return_success = " $return_success					
+			if [ $return_success -eq 0 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
 			then
 				continue
 			fi
 		#./ShowNode $?
 		echo "ShowNode()"
-		./ShowNode $return_value
+		./ShowNode $return_success
 	elif [ $command -eq 4 ]
 	then
 		echo "SelectGroup()"
 		./SelectGroup
+			return_success=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_success를 선언해 줬습니다.
+			# echo $return_success
+			echo "return_success = " $return_success					
+			if [ $return_success -eq 0 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
+			then
+				continue
+			fi
 		echo "ShowGroup()"
 		./ShowGroup
-			return_value=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_value를 선언해 줬습니다.
-			# echo $return_value				
-			echo "return_value = " $return_value				
-			if [ $return_value -eq 0 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
+			return_success=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_success를 선언해 줬습니다.
+			# echo $return_success				
+			echo "return_success = " $return_success				
+			if [ $return_success -eq 0 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
 			then
 				continue
 			fi
 		#./ShowNode $?
 		echo "ShowNode()"
-		./ShowNode $return_value
+		./ShowNode $return_success
 	elif [ $command -eq 5 ]
 	then
 		echo "Import_Export()"
