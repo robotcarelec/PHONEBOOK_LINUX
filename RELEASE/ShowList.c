@@ -108,13 +108,19 @@ int main(int argc, char* argv[]){
 	//localNode* lNode = NULL; //로컬로 사용될 노드는 로컬로
 	localList* lList = malloc(sizeof(localList));
 	localNode* lNode = NULL;
+	localNode* returnNode = NULL;
 	
 	//스트럭처 명이 꼬인다. 찾아서 모두 바꿔주어야함.
 	ChangeList(nodePtr, listPtr, lNode, lList); //로컬 메모리의 링크드 리스트를 만든다. 
 	//ShowList
 	
-	lList->sort_needs = 1;
-	ShowList(lList); //소트 및 인덱스 넘버링 시작
+	lList->sort_needs = 1; //소트가 필요한 값을 어디선가 받아야 하는데 일단 상수로 지정
+	lList->sort_order = listPtr->sort_order; //정렬을 원하는 타입을 공유메모리에서 로컬로 저장함
+	
+	returnNode = ShowList(lList); //리턴 밸류는 selected_node 소트 및 인덱스 넘버링 시작
+	listPtr->return_value = returnNode->index; //리턴 밸류에 인덱스 리턴
+	
+	
 	
 //	PrintList(lList);
 	SortFavorite(lList);
@@ -136,11 +142,12 @@ void ChangeList(stNode* nodePtr, stList* listPtr, localNode* lNode, localList* l
 	
 	
 	int curindex = listPtr->pHead; // index 넘기기용
-		printf("HEAD is : %d\n",curindex);
+	//	printf("HEAD is : %d\n",curindex);
+	lList->sort_order = listPtr->sort_order;
 	
 	while(curindex != -1){ //데이터를 옮기는 루틴
 	
-		printf("Currnet index is %d\n",curindex);
+	//	printf("Currnet index is %d\n",curindex);
 
 		
 		localNode* curLocalNode = malloc(sizeof(localNode)); //노드 만들고
@@ -169,7 +176,7 @@ void ChangeList(stNode* nodePtr, stList* listPtr, localNode* lNode, localList* l
 void saveList(stNode* nodePtr, stList* listPtr, localNode* lNode, localList* lList){// 바뀐 인덱스로 공유메모리에 다시 저장
 	
 	int curindex = lList->pHead->index; // index 넘기기용
-	
+		
 	localNode* cur;
 	
     for (cur = lList->pHead; cur !=NULL ; cur=cur->pNext) {
