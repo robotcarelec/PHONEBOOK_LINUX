@@ -16,8 +16,9 @@
 #define ANSI_COLOR_RESET    "\x1b[0m"
 
 
-static void subMenu(stNode* Node, stList* pList);
-static void EditMenu(stNode* Node, stList* pList);
+//static void subMenu(stNode* Node, stList* pList);
+static void subMenu(stNode* Node, stList* pList, stNode *nodePtr);
+static void EditMenu(stNode* Node, stList* pList, stNode *nodePtr);     // (230702) stNode *nodePtr 추가. 
 static void EditName(stNode* Node);
 static void EditNumber(stNode* Node);
 static void EditGroup(stNode* Node);
@@ -100,17 +101,18 @@ printf("pList->return_value = %d\n", pList->return_value);
     //printf("%3d", Node->favorite);
     //printf("\n");
 
-    subMenu(tmp_stNode, pList);    
+    subMenu(tmp_stNode, pList, nodePtr);    // (230702) nodePtr 추가.
   
     return 0;
 }
 
 
-static void subMenu(stNode* Node, stList* pList) {
+//static void subMenu(stNode* Node, stList* pList) {
+static void subMenu(stNode* Node, stList* pList, stNode *nodePtr) {         //(230702) 공유메모리 상 stNode 첫 주소인 nodePtr를 함께 넘겨줘야 함.
     
     int i=0;   
     int index = Node->index;
-
+printf("pList->pHead2:%d\n", pList->pHead);
     while (i< 4) {
         
         printf("\n");
@@ -124,14 +126,66 @@ static void subMenu(stNode* Node, stList* pList) {
 
         
         if (i == 1) {
-           //DeleteNode(pList, index);
+            
+printf("pList->pHead:%d\n", pList->pHead);
+// (230702) DeleteNode()를 직접 작성함. double_linked_list.c 내의 DeleteNode는 삭제.
+            int n = pList->pHead;       // 원래 노드의 주소값으로 판별하던 것을 → 노드 배열의 인덱스값으로 판별해야 하므로, 인덱스를 저장할 변수 n 선언.
+	        stNode* currentNode;        // 현재 stNode의 주소값 저장위한 변수
+            // 메인 리스트의 노드가 끝에 도달할(-1이 될) 때까지 Head로부터 순차적으로 전진시킴.
+            while(n != -1){
+                currentNode = nodePtr + n;     //nodePtr(노드 배열의 처음 값 주소) + n 인덱스만큼을 더해 줌.
+printf("n:%d\n", n);
+printf("currentNode->id:%d\n", currentNode->id);
+printf("Node->id:%d\n", Node->id);
+		        if (currentNode->id == Node->id){   // (230702) id는 유니크하므로 id를 기준으로 찾음.
+
+                // (230702) 삭제할 것이므로, 앞뒤 노드의 pNext, pPrev를 서로 연결되게 해줌.
+                    //currentNode->pPrev->pNext = currentNode->pNext;
+printf("currentNode->id:%d\n", currentNode->id);
+printf("Node->id:%d\n", Node->id);
+printf("currentNode->pNext:%d\n", currentNode->pNext);
+printf("currentNode->pPrev:%d\n", currentNode->pPrev);
+printf("currentNode - Node:%d\n", (int)(currentNode - Node));
+printf("(Node + currentNode->pPrev)->pNext:%d\n", (Node + currentNode->pPrev)->pNext);
+                    (Node + currentNode->pPrev)->pNext = currentNode->pNext;
+printf("currentNode->pNext:%d\n", currentNode->pNext);
+printf("(Node + currentNode->pPrev)->pNext:%d\n", (Node + currentNode->pPrev)->pNext);
+                    //currentNode->pNext->pPrev = currentNode->pPrev;
+                    (Node + currentNode->pNext)->pPrev = currentNode->pPrev;
+
+
+//                cur->pPrev->pNext = cur->pNext;
+//                cur->pNext->pPrev = cur->pPrev;
+//                free(cur);   // 메모리 할당 해제
+
+
+                // (230702) 해당 노드 초기화 (초기화 방식 논의 필요)
+		            printf("%5d ", currentNode->id = 0);
+                    printf("%3d ", currentNode->index = 0);
+                    printf("%30s ", strcpy(currentNode->name, ""));
+                    printf("%20s ", strcpy(currentNode->number, ""));
+                    printf("%20s ", strcpy(currentNode->group, ""));
+                    printf("%3d", currentNode->matchedValue = 0);
+                    printf("%3d", currentNode->pPrev = -1);
+                    printf("%3d", currentNode->pNext = -1);
+                    printf("\n"); 
+
+
+
+
+                    break;
+		        }
+                n = currentNode->pNext;
+            }
+// DeleteNode() 끝.
+
            printf("Delete Success \n");
-           system("clear");
+           //system("clear");
            
         }
 
        else if (i == 2) {
-           EditMenu(Node,pList);
+           EditMenu(Node,pList, nodePtr);       // (230702) nodePtr 추가.
            //SortList(pList);
        }
 
@@ -150,7 +204,7 @@ static void subMenu(stNode* Node, stList* pList) {
 }
 
 
-static void EditMenu(stNode* Node, stList* pList) {
+static void EditMenu(stNode* Node, stList* pList, stNode* nodePtr) {    // (230702) stNode* nodePtr 추가.
     int num = 0;
     int j = 0;
    
@@ -206,7 +260,7 @@ static void EditMenu(stNode* Node, stList* pList) {
     }
     system("clear");
     PrintShowNode(Node);
-    subMenu(Node, pList);
+    subMenu(Node, pList, nodePtr);      //(230702) nodePtr 추가.
     return;
 
 }
@@ -304,3 +358,25 @@ static int PrintShowNode(stNode* Node) {
 }
 
 
+
+
+/*
+extern void DeleteNode(ostList* pList, int index) {
+    ostNode* cur;
+    if(IsEmpty(pList)) {
+        printf("There is no member.\n");    
+    } else {
+        cur = pList->pHead;
+        while(cur->pNext !=NULL) {
+            if (index == cur->index) {   // 같은id를 가진 노드를 제거
+                cur->pPrev->pNext = cur->pNext;
+                cur->pNext->pPrev = cur->pPrev;
+                free(cur);   // 메모리 할당 해제
+                break;
+            }
+            cur = cur->pNext;
+        }
+    }
+}  // index를 받아서 같은 index를 가진 노드 삭제 하기 
+
+*/

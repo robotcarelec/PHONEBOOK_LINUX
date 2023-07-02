@@ -35,6 +35,8 @@ extern void AddtoTailNode(ostList* pList, ostNode* data) {   // 노드를 tail�
     }
 }  //List의 뒤에 신규 노드 추가
 
+
+
 extern void AddtoHeadNode(ostList* pList, ostNode* data) { //노드를 Head에 추가    
     ostNode* node = MakeNode(data);
     if(IsEmpty(pList)) {
@@ -46,23 +48,8 @@ extern void AddtoHeadNode(ostList* pList, ostNode* data) { //노드를 Head에 �
         node->pPrev = NULL;    
     }
 }  
-extern void DeleteNode(ostList* pList, int index) {
-    ostNode* cur;
-    if(IsEmpty(pList)) {
-        printf("There is no member.\n");    
-    } else {
-        cur = pList->pHead;
-        while(cur->pNext !=NULL) {
-            if (index == cur->index) {   // 같은id를 가진 노드를 제거
-                cur->pPrev->pNext = cur->pNext;
-                cur->pNext->pPrev = cur->pPrev;
-                free(cur);   // 메모리 할당 해제
-                break;
-            }
-            cur = cur->pNext;
-        }
-    }
-}  // index를 받아서 같은 index를 가진 노드 삭제 하기 
+
+// (230702) DeleteNode()를 ShowNode.c로 이동.
 
 extern void PrintList(ostList* pList) {
     ostNode* cur;
