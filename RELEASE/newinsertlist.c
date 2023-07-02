@@ -153,7 +153,7 @@ int searchVacantIDadd(stList* pList, stNode* pNode) {
 	int curindex = pList->pHead;
 	
 	while(curindex != -1){ // 공유 메모리 링크 돌리기
-		chkID[pNode->id % 10000] = pNode[curindex].id;
+		chkID[pNode[curindex].id % 10000] = pNode[curindex].id;
 		
 		curindex = pNode[curindex].pNext;
 	}
