@@ -227,8 +227,8 @@ printf("here2\n");
         scanf(" %d",&user_choice);
         
         if(user_choice == 0) {
-            // printf("quit\n");
-            return 0;    // q를 입력받으면 NULL을 리턴함                                 // (230628) NULL → 0
+//printf("quit\n");
+            return NULL;    // q를 입력받으면 NULL을 리턴함       // (230703) 리턴값을 -1로 주면 에러남.
 printf("here1\n");
         }        
         if(user_choice <= pList->count_node && user_choice > 0) {

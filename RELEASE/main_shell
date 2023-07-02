@@ -38,7 +38,7 @@ do
 			return_success=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_success를 선언해 줬습니다.
 			# echo $return_success
 			echo "return_success = " $return_success	
-			if [ $return_success -eq 0 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
+			if [ $return_success -eq 255 ] 		# 위 함수가 255(= -1) 값을 리턴하면, while문(메인 메뉴)으로 복귀.
 			then
 				continue
 			fi
@@ -52,7 +52,7 @@ do
 			return_success=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_success를 선언해 줬습니다.
 			# echo $return_success
 			echo "return_success = " $return_success					
-			if [ $return_success -eq 0 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
+			if [ $return_success -eq 255 ] 		# (230703) ShowList 함수만큼은 -1을 리턴할 수 없음(주소값만 리턴 가능). 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
 			then
 				continue
 			fi
@@ -66,7 +66,7 @@ do
 			return_success=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_success를 선언해 줬습니다.
 			# echo $return_success
 			echo "return_success = " $return_success					
-			if [ $return_success -eq 0 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
+			if [ $return_success -eq 255 ] 		# 위 함수가 255(= -1) 값을 리턴하면, while문(메인 메뉴)으로 복귀.
 			then
 				continue
 			fi
@@ -75,7 +75,7 @@ do
 			return_success=$?					# $?는 단 한번 밖에 못 쓰는 것 같습니다. 따라서, 새로운 변수 return_success를 선언해 줬습니다.
 			# echo $return_success				
 			echo "return_success = " $return_success				
-			if [ $return_success -eq 0 ] 		# 위 함수가 0 값을 리턴하면, while문(메인 메뉴)으로 복귀.
+			if [ $return_success -eq 255 ] 		# 위 함수가 255(= -1) 값을 리턴하면, while문(메인 메뉴)으로 복귀.
 			then
 				continue
 			fi

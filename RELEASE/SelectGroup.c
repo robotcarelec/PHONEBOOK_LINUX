@@ -146,8 +146,9 @@ int main(){
     
 	//scanf("%s", group_name);               // 리스트 중에 group_name을 타이핑하도록 함.
 	scanf("%s", pList->group_name);
-        if(pList->group_name == 0){
-            return 0;
+        if(!(strcmp(pList->group_name, "0"))){
+//printf("here: %s\n", pList->group_name);
+            return -1;
         }
     //printf("%s\n", group_name);
     printf("pList->group_name: %s\n", pList->group_name);
